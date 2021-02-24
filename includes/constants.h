@@ -9,7 +9,7 @@
 #define CONSTANTS_H_
 #include <string>
 
-//TODO put all constants in the 'constants' namespace
+//put all constants in the 'constants' namespace
 namespace constants {
 
 	//defines how you want to sort the data
@@ -17,7 +17,7 @@ namespace constants {
 		NONE,ASCENDING, DESCENDING, NUMBER_OCCURRENCES
 	};
 
-	//TODO define a structure to track words and number of times they occur
+	//define a structure to track words and number of times they occur
 	struct entry {
 		std::string word;
 		std::string word_uppercase;
