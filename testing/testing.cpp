@@ -192,16 +192,20 @@ bool test_File(string filename, sortOrder mysortorder= NONE){
 	std::vector<constants::entry>  entries;
 	clear(entries);
 	fstream myfstream;
-	if (!openFile(myfstream, filename))
+	if (!openFile(myfstream, filename)){
 		return false;
+	}
 
-	if (!processFile(entries,myfstream))
+	if (!processFile(entries,myfstream)){
 		return false;
+	}
+
 
 	sort(entries,mysortorder);
 	string name = TEST_DATA_FULL_OUT;
-	if ( writetoFile(entries,name)!= SUCCESS)
+	if ( writetoFile(entries,name)!= SUCCESS){
 		return false;
+	}
 
 	//NOTE: C++ does not support try-finally
 	//it expects you to use destructors instead

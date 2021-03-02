@@ -6,9 +6,11 @@
 
 #include "../includes/constants.h"
 #include "../includes/fileio.h"
+#include "../includes/utilities.h"
 
 using namespace std;
 using namespace constants;
+
 
 const bool COULD_OPEN_FILE = true;
 const bool COULD_NOT_OPEN_FILE = false;
@@ -17,16 +19,15 @@ const bool COULD_NOT_OPEN_FILE = false;
   in this case Project2 with the .project and .cProject files*
   returns True - file opened successfully
           False - file not opened*/
-bool openFile(std::fstream& myfile, const std::string& myFileName,
-		std::ios_base::openmode mode = std::ios_base::in){
+bool openFile(std::fstream& myfile, const std::string& myFileName, ios_base::openmode mode){
 
 	myfile.open(myFileName.c_str(), mode);
 
 	if (!myfile.is_open()) {
-		return FAIL_FILE_DID_NOT_OPEN;
+		return COULD_NOT_OPEN_FILE;
 	}
 
-	return SUCCESS;
+	return COULD_OPEN_FILE;
 }
 
 /*iff myfile is open then close it*/
@@ -45,7 +46,24 @@ void closeFile(std::fstream& myfile){
  * 			SUCCESS if all data is written and outputfilename closes OK
  * */
 int writetoFile(std::vector<constants::entry>  &entries, const std::string &outputfilename){
+	fstream myfile;
 
-	return 0;
+	ios_base::openmode mode = ios_base::out;
+	bool file_opened = openFile(myfile, outputfilename, mode);
+	cout << file_opened << endl;
+	if (!file_opened) {
+		return FAIL_FILE_DID_NOT_OPEN;
+	}
+
+	if (entries.size() == 0){
+
+		return FAIL_NO_ARRAY_DATA;
+	}
+
+	for(long unsigned int i = 0; i < entries.size(); ++i) {
+		myfile << entries[i].word + " " + intToString(entries[i].number_occurences) + "\n";
+	}
+	closeFile(myfile);
+
+	return SUCCESS;
 }
-
